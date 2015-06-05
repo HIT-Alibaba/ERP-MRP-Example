@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv='Content-type' content='text/html; charset=utf-8'>
+    <style>
+
+    table{
+    	padding:0
+    }
+
+    table{
+    	border-collapse:collapse;
+    	border-spacing:0
+    }
+
+    table tr{
+    	border-top:1px solid #ccc;
+    	background-color:#fff;
+    	margin:0;
+    	padding:0
+    }
+
+    table tr:nth-child(2n){
+    	background-color:#f8f8f8
+    }
+
+    table tr th{
+    	font-weight:bold;
+    	border:1px solid #ccc;
+    	text-align:right;
+    	margin:0;
+    	padding:6px 13px;
+    }
+
+    table tr td{
+    	border:1px solid #ccc;
+    	text-align:right;
+    	margin:0;
+    	padding:6px 13px
+    }
+
+    table tr th :first-child,.body-html table tr td :first-child{
+    	margin-top:0;
+      padding:6px 13px;
+    }
+
+    table tr th :last-child,.body-html table tr td :last-child{
+    	margin-bottom:0;
+      padding:6px 13px;
+    }
+    span {
+      padding-right: 10px;
+    }
+    .text-center {
+      text-align: center;
+    }
+    </style>
+  </head>
+  <body>
+    <div id="container">
+    </div>
+    <script src="./static/react.js"></script>
+    <script src="./static/JSXTransformer.js"></script>
+    <script type="text/jsx">
+
+      var Products ={
+         A: {
+          '__name__': 'A',
+          'LT': 1,
+          'ST': 0,
+          'SS': 25,
+          'LLC': 0,
+          'LS': 1,
+          'Comp': {
+            'C': 2,
+            'D': 1,
+          },
+          'OH': 20,
+          'AL': 0,
+          'OO': [0, 100, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+          'GR': [0, 80, 50, 100, 60, 100, 70, 100, 60, 100, 50, 100, 50],
+          'SR': [0, 100, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+          'POR': [0, 35, 100, 60, 100, 70, 100, 60, 100, 50, 100, 50, 0]
+        },
+        B: {
+          '__name__': 'B',
+          'LT': 1,
+          'ST': 0,
+          'SS': 20,
+          'LLC': 0,
+          'LS': 1,
+          'Comp': {
+            'C': 1,
+            'E': 1,
+          },
+          'OH': 40,
+          'AL': 0,
+          'OO': [0, 50, 100, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+          'GR': [0, 70, 100, 50, 90, 60, 110, 60, 100, 50, 100, 50, 100],
+          'SR': [0, 50, 100, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+          'POR': [0, 0, 50, 90, 60, 110, 60, 100, 50, 100, 50, 100, 0],
+        },
+        C: {
+          '__name__': 'C',
+          'LT': 1,
+          'ST': 0,
+          'SS': 5,
+          'LLC': 2,
+          'LS': 500,
+          'Comp': {
+            'E': 1,
+            'F': 1,
+          },
+          'OH': 60,
+          'AL': 0,
+          'OO': [0, 200, 150, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+          'SR': [0, 200, 150, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        },
+
+        D: {
+          '__name__': 'D',
+          'LT': 1,
+          'ST': 0,
+          'SS': 5,
+          'LLC': 1,
+          'LS': 200,
+          'Comp': {
+            'C': 1,
+            'E': 2,
+          },
+          'OH': 60,
+          'AL': 20,
+          'OO': [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+          'SR': [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        },
+        E: {
+          '__name__': 'E',
+          'LT': 2,
+          'ST': 0,
+          'SS': 50,
+          'LLC': 3,
+          'LS': 3,
+          'Comp': {
+          },
+          'OH': 100,
+          'AL': 0,
+          'OO': [0, 1500, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+          'SR': [0, 1500, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        },
+        F: {
+          '__name__': 'F',
+          'LT': 2,
+          'ST': 1,
+          'SS': 100,
+          'LLC': 3,
+          'LS': 2,
+          'Comp': {
+
+          },
+          'OH': 100,
+          'AL': 0,
+          'OO': [0, 1000, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+          'SR': [0, 1000, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        }
+      }
+
+      function max(a, b) {
+        return a > b ? a : b;
+      }
+
+      function get_prodoct_by_llc(products) {
+        var level = [];
+        for (var p in products) {
+          var product = products[p];
+          if (typeof(level[product.LLC]) == 'undefined') {
+            level[product.LLC] = [];
+          }
+          level[product.LLC].push(p);
+        }
+        return level;
+      }
+
+
+      function expand_product(parent, products) {
+        for (var child in parent.Comp) {
+          var t = products[child];
+          if (!t.hasOwnProperty('GR')) {
+            t.GR = [0];
+          }
+          if (!parent.hasOwnProperty('POR')) {
+            return;
+          }
+          for (var i = 0; i < t.OO.length; i++ ) {
+            if (!t.GR.hasOwnProperty(i)) {
+              t.GR[i] = 0;
+            }
+            t.GR[i] += parent.POR[i] * parent.Comp[child];
+          }
+        }
+      }
+
+      function do_level_iteration(products, func) {
+        var level = get_prodoct_by_llc(products);
+        for (var l = 0; l < level.length; l++) {
+          var level_products = level[l];
+          for (var p in level_products) {
+            func(p, products, level_products);
+          }
+        }
+      }
+
+      function get_FOQ_porcpt(NR, LS) {
+        if (NR % LS === 0) {
+          return (NR / LS) * LS;
+        } else {
+          return (Math.floor(NR / LS) + 1) * LS;
+        }
+      }
+
+      function do_mrp(p, products) {
+        p.PAB = [0];
+        p.POH = [0];
+        p.PORcpt = [0];
+        p.NR = [0];
+        if (!p.hasOwnProperty('POR')) {
+          p.POR = [0];
+        }
+        p.PAB[0] = p.OH + max(p.SR[0], 0) - p.AL;
+
+        for (var t = 1; t < p.OO.length; t++) {
+
+            if (t == 1) {
+              p.POH[t] = p.PAB[t - 1] + p.SR[t] - p.GR[t] - max(p.GR[t-1], 0);
+            } else {
+              p.POH[t] = p.PAB[t - 1] + p.SR[t] - p.GR[t]
+            }
+
+            if (p.POH[t] < p.SS) {
+              p.NR[t] = p.SS - p.POH[t];
+              p.PORcpt[t] = get_FOQ_porcpt(p.NR[t], p.LS);
+            } else {
+              p.NR[t] = 0;
+              p.PORcpt[t] = 0;
+            }
+            p.PAB[t] = p.POH[t] + p.PORcpt[t];
+            p.POR[t - p.LT] = p.PORcpt[t];
+        }
+        // fill empty POR with 0
+        for (var j = 0; j < p.OO.length; j++) {
+          if (!p.POR.hasOwnProperty(j)) {
+            p.POR[j] = 0;
+          }
+        }
+
+        expand_product(p, products);
+      }
+
+      function main() {
+        do_level_iteration(Products, function(p, products, level_products) {
+          var parent = products[level_products[p]];
+          do_mrp(parent, products);
+        });
+      }
+
+      main();
+
+
+      function makeKey()
+      {
+        var text = "";
+        var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+
+        for( var i=0; i < 5; i++ )
+           text += possible.charAt(Math.floor(Math.random() * possible.length));
+
+        return text;
+      }
+
+      var headers =[];
+      for (var i = 0; i < Products.A.OO.length; i++) {
+        var key = makeKey();
+        headers.push(<th key={key} width="50px">{i}</th>);
+      }
+
+      function makeTableRow(arr) {
+        var result = [];
+        for (var i = 0; i < arr.length; i++) {
+          var key = makeKey();
+          result.push(<td key={key} width="50px">{arr[i]}</td>);
+        }
+        return result;
+      }
+
+
+      var MyTableHeader = React.createClass({
+        render: function() {
+          var cur = this.props.data;
+          var leftColSpan = cur.OO.length + 1 - 2 * 6;
+          return (
+            <thead>
+              <tr>
+                <th colSpan="0"><p className="text-center">MRP Report For{cur.__name__}</p></th>
+              </tr>
+              <tr>
+                <th colSpan={leftColSpan}></th>
+                <th colSpan="2">OH={cur.OH}</th>
+                <th colSpan="2">AL={cur.AL}</th>
+                <th colSpan="2">LT={cur.LT}</th>
+                <th colSpan="2">ST={cur.ST}</th>
+                <th colSpan="2">SS={cur.SS}</th>
+                <th colSpan="2">LS={cur.LS}</th>
+              </tr>
+              <tr>
+                <th>Period</th>
+                {headers}
+              </tr>
+            </thead>
+          );
+        }
+      });
+
+      var MyTableBody = React.createClass({
+        render: function() {
+          var a = this.props.data;
+          var GRRow = makeTableRow(a.GR);
+          var SRRow = makeTableRow(a.SR);
+          var POHRow = makeTableRow(a.POH);
+          var PABRow = makeTableRow(a.PAB);
+          var NRRow = makeTableRow(a.NR);
+          var PORcptRow = makeTableRow(a.PORcpt);
+          var PORRow = makeTableRow(a.POR);
+
+          return (
+           <tbody>
+             <tr>
+               <td>GR</td>
+               {GRRow}
+             </tr>
+
+             <tr>
+               <td>SR</td>
+               {SRRow}
+             </tr>
+
+             <tr>
+               <td>POH</td>
+               {POHRow}
+             </tr>
+
+             <tr>
+               <td>PAB</td>
+               {PABRow}
+             </tr>
+
+             <tr>
+               <td>NR</td>
+               {NRRow}
+             </tr>
+
+             <tr>
+               <td>PORcpt</td>
+               {PORcptRow}
+             </tr>
+
+             <tr>
+               <td>POR</td>
+               {PORRow}
+             </tr>
+           </tbody>
+          )
+        }
+      });
+      var MyTable = React.createClass({
+        render: function() {
+          return (
+            <div>
+            <table className="mytable">
+              <MyTableHeader {...this.props}/>
+              <MyTableBody {...this.props}/>
+            </table>
+            <p></p>
+            </div>
+          );
+        }
+      });
+      var tables = []
+      for (p in Products) {
+        var cur = Products[p];
+        tables.push(<MyTable key={p} data={cur}/>);
+      }
+      React.render(
+      <div>
+          {tables}
+      </div>
+        , document.getElementById('container')
+      );
+    </script>
+  </body>
+</html>
